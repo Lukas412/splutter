@@ -1,5 +1,5 @@
-use crate::sql::names::SqlName;
-use crate::{Output, StrRefIdentifier};
+use splutter::Output;
+use crate::names::SqlName;
 
 pub trait SqlInsert {
     fn sql_insert(self) -> impl Output;

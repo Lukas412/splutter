@@ -1,5 +1,4 @@
-use crate::combinators::Output;
-use crate::{Separated, StrRefIdentifier};
+use splutter::{Output, Separated, StrRefIdentifier};
 
 pub trait SqlFrom {
     fn sql_from(self) -> impl Output;

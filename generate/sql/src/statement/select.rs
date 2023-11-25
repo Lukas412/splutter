@@ -24,7 +24,7 @@ where
     S: SqlSelect,
     F: SqlFrom,
 {
-    fn sql(self) -> impl Output {
+    fn sql_statement(self) -> impl Output {
         (self.select.sql_select(), ' ', self.from.sql_from(), ';')
     }
 }
@@ -56,7 +56,7 @@ where
     F: SqlFrom,
     W: SqlWhere,
 {
-    fn sql(self) -> impl Output {
+    fn sql_statement(self) -> impl Output {
         (
             self.select.sql_select(),
             ' ',

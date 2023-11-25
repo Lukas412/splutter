@@ -14,7 +14,7 @@ pub use statement::{SqlInsertInto, SqlSelectFrom, SqlSelectFromWhere, SqlStateme
 #[cfg(test)]
 mod tests {
     use super::*;
-    use splutter::StrValidationExt;
+    use splutter::{StrValidationExt, Output};
 
     #[test]
     fn test_sql_select_generation() {
@@ -22,7 +22,7 @@ mod tests {
             ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
             "persons".as_identifier().unwrap(),
         )
-        .sql();
+        .sql_statement();
         let mut buffer = String::new();
         sql.output(&mut buffer);
         assert_eq!(buffer, "SELECT name, age FROM persons;")
@@ -33,7 +33,7 @@ mod tests {
             ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
             "persons".as_identifier().unwrap(),
         )
-        .sql();
+        .sql_statement();
         let mut buffer = String::new();
         sql.output(&mut buffer);
         assert_eq!(buffer, "SELECT name, age FROM persons;")
@@ -46,12 +46,12 @@ mod tests {
             ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
             ("Tom\'s name", 23),
         )
-        .sql();
+        .sql_statement();
         let mut buffer = String::new();
         sql.output(&mut buffer);
         assert_eq!(
             buffer,
-            "INSERT INTO persons (name, age) VALUES ('Tom''s name', 23)"
+            "INSERT INTO persons (name, age) VALUES ('Tom''s name', 23);"
         )
     }
 }

@@ -31,7 +31,7 @@ where
     F: SqlFields,
     V: SqlValues,
 {
-    fn sql(self) -> impl Output {
+    fn sql_statement(self) -> impl Output {
         (
             self.table.sql_insert(),
             ' ',

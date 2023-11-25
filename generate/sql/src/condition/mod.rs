@@ -1,4 +1,4 @@
-use crate::combinators::Output;
+use splutter::Output;
 
 mod and;
 

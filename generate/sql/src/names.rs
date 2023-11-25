@@ -1,4 +1,4 @@
-use crate::{Output, Separated, StrRefIdentifier};
+use splutter::{Output, Separated, StrRefIdentifier};
 
 pub trait SqlName {
     fn sql_name(self) -> impl Output;

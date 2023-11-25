@@ -1,5 +1,4 @@
-use crate::combinators::Output;
-use crate::{Separated, Sql};
+use splutter::{Output, Separated};
 
 pub trait SqlValue {
     fn sql_value(self) -> impl Output;

@@ -9,5 +9,5 @@ pub use {
 };
 
 pub trait SqlStatement {
-    fn sql(self) -> impl Output;
+    fn sql_statement(self) -> impl Output;
 }

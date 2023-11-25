@@ -1,5 +1,4 @@
-use crate::combinators::Output;
-use crate::{StrRefIdentifier, Separated};
+use splutter::{Output, Separated, StrRefIdentifier};
 
 pub trait SqlSelect {
     fn sql_select(self) -> impl Output;
