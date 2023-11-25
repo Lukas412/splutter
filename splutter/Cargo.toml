@@ -2,5 +2,7 @@
 name = "splutter"
 version = "0.1.0"
 edition = "2021"
+description = "A library to create/generate text efficiently."
+license = "MIT"
 
 [dependencies]
