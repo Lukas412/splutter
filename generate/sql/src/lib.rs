@@ -14,12 +14,15 @@ pub use statement::{SqlInsertInto, SqlSelectFrom, SqlSelectFromWhere, SqlStateme
 #[cfg(test)]
 mod tests {
     use super::*;
-    use splutter::{StrValidationExt, Output};
+    use splutter::{Output, StrValidationExt};
 
     #[test]
     fn test_sql_select_generation() {
         let sql = SqlSelectFrom::new(
-            ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
+            (
+                "name".as_identifier().unwrap(),
+                "age".as_identifier().unwrap(),
+            ),
             "persons".as_identifier().unwrap(),
         )
         .sql_statement();
@@ -30,7 +33,10 @@ mod tests {
 
     fn test_sql_select_where_generation() {
         let sql = SqlSelectFrom::new(
-            ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
+            (
+                "name".as_identifier().unwrap(),
+                "age".as_identifier().unwrap(),
+            ),
             "persons".as_identifier().unwrap(),
         )
         .sql_statement();
@@ -43,7 +49,10 @@ mod tests {
     fn test_sql_insert_generation() {
         let sql = SqlInsertInto::new(
             "persons".as_identifier().unwrap(),
-            ("name".as_identifier().unwrap(), "age".as_identifier().unwrap()),
+            (
+                "name".as_identifier().unwrap(),
+                "age".as_identifier().unwrap(),
+            ),
             ("Tom\'s name", 23),
         )
         .sql_statement();
