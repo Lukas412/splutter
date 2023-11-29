@@ -1,5 +1,6 @@
 pub use separated::Separated;
 use std::ops::{Deref, Div, Index, Rem};
+
 mod separated;
 
 pub trait Output {
@@ -21,7 +22,7 @@ fn output_unsigned_integer(mut number: u64, output: &mut String) {
     let mut index = 0;
     loop {
         let (div, rem) = (number / 10, number % 10);
-        let char = CHARS[rem as usize].clone();
+        let char = CHARS[rem as usize];
         output.insert(output.len() - index, char);
         if div == 0 {
             break;
@@ -35,56 +36,38 @@ fn output_signed_integer(mut number: i64, output: &mut String) {
     if number < 0 {
         output.push('-');
     }
-    output_unsigned_integer(number.abs() as u64, output);
+    output_unsigned_integer(number.unsigned_abs(), output);
 }
 
-impl Output for u8 {
-    fn output(self, output: &mut String) {
-        output_unsigned_integer(self as u64, output);
-    }
+macro_rules! output_unsigned_integer {
+    ($type:ty) => {
+        impl Output for $type {
+            fn output(self, output: &mut String) {
+                output_unsigned_integer(self as u64, output);
+            }
+        }
+    };
 }
 
-impl Output for i8 {
-    fn output(self, output: &mut String) {
-        output_signed_integer(self as i64, output);
-    }
+output_unsigned_integer!(u8);
+output_unsigned_integer!(u16);
+output_unsigned_integer!(u32);
+output_unsigned_integer!(u64);
+
+macro_rules! output_signed_integer {
+    ($type:ty) => {
+        impl Output for $type {
+            fn output(self, output: &mut String) {
+                output_signed_integer(self as i64, output);
+            }
+        }
+    };
 }
 
-impl Output for u16 {
-    fn output(self, output: &mut String) {
-        output_unsigned_integer(self as u64, output);
-    }
-}
-
-impl Output for i16 {
-    fn output(self, output: &mut String) {
-        output_signed_integer(self as i64, output);
-    }
-}
-
-impl Output for u32 {
-    fn output(self, output: &mut String) {
-        output_unsigned_integer(self as u64, output);
-    }
-}
-
-impl Output for i32 {
-    fn output(self, output: &mut String) {
-        output_signed_integer(self as i64, output);
-    }
-}
-
-impl Output for u64 {
-    fn output(self, output: &mut String) {
-        output_unsigned_integer(self as u64, output);
-    }
-}
-
-impl Output for i64 {
-    fn output(self, output: &mut String) {
-        output_signed_integer(self as i64, output);
-    }
-}
+output_signed_integer!(i8);
+output_signed_integer!(i16);
+output_signed_integer!(i32);
+output_signed_integer!(i64);
 
 impl Output for char {
     fn output(self, output: &mut String) {

@@ -64,6 +64,29 @@ where
     }
 }
 
+impl<V1, V2, V3, V4, V5, B> Output for SeparatedBy<(V1, V2, V3, V4, V5), B>
+where
+    V1: Output,
+    V2: Output,
+    V3: Output,
+    V4: Output,
+    V5: Output,
+    B: Copy,
+    B: Output,
+{
+    fn output(self, output: &mut String) {
+        self.values.0.output(output);
+        self.by.output(output);
+        self.values.1.output(output);
+        self.by.output(output);
+        self.values.2.output(output);
+        self.by.output(output);
+        self.values.3.output(output);
+        self.by.output(output);
+        self.values.4.output(output);
+    }
+}
+
 pub trait Separated<B> {
     fn separated(self, by: B) -> impl Output;
 }
@@ -99,6 +122,20 @@ where
     O2: Output,
     O3: Output,
     O4: Output,
+    By: Copy,
+    By: Output,
+{
+    fn separated(self, by: By) -> impl Output {
+        SeparatedBy::new(self, by)
+    }
+}
+impl<O1, O2, O3, O4, O5, By> Separated<By> for (O1, O2, O3, O4, O5)
+where
+    O1: Output,
+    O2: Output,
+    O3: Output,
+    O4: Output,
+    O5: Output,
     By: Copy,
     By: Output,
 {

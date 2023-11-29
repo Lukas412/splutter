@@ -15,6 +15,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "splutter_json"
+version = "0.1.0"
+dependencies = [
+ "splutter",
+]
+
+[[package]]
 name = "splutter_sql"
 version = "0.1.0"
 dependencies = [

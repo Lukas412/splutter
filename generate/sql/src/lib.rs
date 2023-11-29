@@ -1,5 +1,3 @@
-#![feature(return_position_impl_trait_in_trait)]
-
 mod condition;
 mod fields;
 mod from;
@@ -31,6 +29,7 @@ mod tests {
         assert_eq!(buffer, "SELECT name, age FROM persons;")
     }
 
+    #[test]
     fn test_sql_select_where_generation() {
         let sql = SqlSelectFrom::new(
             (

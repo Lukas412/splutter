@@ -1,10 +1,11 @@
-#![feature(pattern)]
-#![feature(return_position_impl_trait_in_trait)]
 #![allow(unused)]
 
 extern crate core;
 
-pub use {output::*, validators::*};
+pub use {
+    output::{Output, Separated},
+    validators::{StrRefIdentifier, StrRefInteger, StrValidationExt},
+};
 
 mod output;
 mod validators;

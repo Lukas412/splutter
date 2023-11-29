@@ -1,5 +1,4 @@
 use crate::output::Output;
-use std::str::pattern::Pattern;
 
 pub trait StrValidationExt<'a> {
     fn as_integer(&self) -> Option<StrRefInteger<'a>>;
@@ -58,7 +57,7 @@ impl<'a> StrRefDecimal<'a> {
     pub fn new(value: &'a str) -> Option<Self> {
         let initial = value;
         let (value, before) = take_integer_or_nothing(value)?;
-        let value = take_tag('.', value)?;
+        let value = value.strip_prefix('.')?;
         let (value, after) = take_integer_or_nothing(value)?;
         (value.is_empty() && (!before.is_empty() || !after.is_empty())).then_some(Self(initial))
     }
@@ -91,13 +90,6 @@ impl<'a> Output for StrRefIdentifier<'a> {
 #[inline]
 fn is_ascii_identifier(char: char) -> bool {
     matches!(char, 'a'..='z' | 'A'..='Z' | '0'..='9' | '_')
-}
-
-fn take_tag<'a, P>(tag: P, input: &'a str) -> Option<&'a str>
-where
-    P: Pattern<'a>,
-{
-    tag.strip_prefix_of(input)
 }
 
 fn take_integer(input: &str) -> Option<(&str, &str)> {
