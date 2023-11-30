@@ -1,6 +1,6 @@
 use crate::key::JsonKey;
 use crate::value::JsonValue;
-use splutter::{Output, Separated};
+use splutter::{Output, Separated, SurroundWithCurlyBrackets};
 
 pub trait JsonObject {
     fn json_object(self) -> impl Output;
@@ -76,7 +76,9 @@ where
             self.3.json_key_value(),
             self.4.json_key_value(),
         );
-        ('{', json_key_values.separated(','), '}')
+        json_key_values
+            .separated(',')
+            .surround_with_curly_brackets()
     }
 }
 
